@@ -1,6 +1,6 @@
 package com.order.management.infra.exception;
 
-import br.com.cvccorp.cadastro.infra.ResponseDTO;
+import com.order.management.model.dto.ResponseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

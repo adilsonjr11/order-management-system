@@ -2,19 +2,24 @@ package com.order.management.service;
 
 import com.order.management.model.Order;
 import com.order.management.repository.OrderRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+
 import java.math.BigDecimal;
 import java.util.List;
-
-import org.springframework.cache.annotation.EnableCaching;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @Service
 public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Cacheable("orders")
     @CircuitBreaker(name = "orderService", fallbackMethod = "fallbackGetAllOrders")
